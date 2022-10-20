@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universities in a Country</title>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <h2>List of Universities in a Country</h2>
+
+    <form action="/search", method="post">
+        <input class="text_input" id="country" name="country" type="text" placeholder="Enter the country name">
+        <input class="search_button" type="submit" value="Search">
+    </form>
+    
+
+    {% if has_results: %}
+
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-1">Name</div>
+            <div class="col col-2">Country</div>
+            <div class="col col-3">Code</div>
+            <div class="col col-4">State Province</div>
+            <div class="col col-5">Web Pages</div>
+            <div class="col col-6">Domains</div>
+        </li>
+
+
+        {% for record in response %}
+        <li class="table-row">
+            <div class="col col-1" data-label="Name">{{ record["name"] }}</div>
+            <div class="col col-2" data-label="Country">{{ record["country"] }}</div>
+            <div class="col col-3" data-label="Alpha_Two_Code">{{ record["alpha_two_code"] }}</div>
+            <div class="col col-4" data-label="State_Province">{{ record["state-province"] }}</div>
+            <div class="col col-5" data-label="Web_Pages"><a href=' {{ record["web_pages"][0] }} '>{{ record["web_pages"][0] }}</a></div>
+            <div class="col col-6" data-label="Domains">{{ record["domains"][0] }}</div>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    {% endif %}
+</div>
+</body>
+</html>
